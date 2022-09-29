@@ -18,7 +18,8 @@ final class ZennParserTests: XCTestCase {
 
         #######        bb
 
-        ---
+        -  -  -
+        ***
 
             c ##  dd
         """
@@ -32,21 +33,23 @@ final class ZennParserTests: XCTestCase {
         }
 
         XCTAssertEqual(check(parser.currentToken) , (" ", .space))
-        XCTAssertEqual(next() , ("### ", .heading))
-        XCTAssertEqual(next() , ("aa", .text))
-        XCTAssertEqual(next() , ("\n\n\n", .linebreak))
-        XCTAssertEqual(next() , ("#######", .text))
-        XCTAssertEqual(next() , ("        ", .space))
-        XCTAssertEqual(next() , ("bb", .text))
-        XCTAssertEqual(next() , ("\n\n", .linebreak))
-        XCTAssertEqual(next() , ("---", .divider))
-        XCTAssertEqual(next() , ("\n\n", .linebreak))
-        XCTAssertEqual(next() , ("    ", .space))
-        XCTAssertEqual(next() , ("c", .text))
-        XCTAssertEqual(next() , (" ", .space))
-        XCTAssertEqual(next() , ("##", .text))
-        XCTAssertEqual(next() , ("  ", .space))
-        XCTAssertEqual(next() , ("dd", .text))
-        XCTAssertEqual(next() , ("", .eof))
+        XCTAssertEqual(next(), ("### ", .heading))
+        XCTAssertEqual(next(), ("aa", .text))
+        XCTAssertEqual(next(), ("\n\n\n", .linebreak))
+        XCTAssertEqual(next(), ("#######", .text))
+        XCTAssertEqual(next(), ("        ", .space))
+        XCTAssertEqual(next(), ("bb", .text))
+        XCTAssertEqual(next(), ("\n\n", .linebreak))
+        XCTAssertEqual(next(), ("-  -  -", .divider))
+        XCTAssertEqual(next(), ("\n", .linebreak))
+        XCTAssertEqual(next(), ("***", .divider))
+        XCTAssertEqual(next(), ("\n\n", .linebreak))
+        XCTAssertEqual(next(), ("    ", .space))
+        XCTAssertEqual(next(), ("c", .text))
+        XCTAssertEqual(next(), (" ", .space))
+        XCTAssertEqual(next(), ("##", .text))
+        XCTAssertEqual(next(), ("  ", .space))
+        XCTAssertEqual(next(), ("dd", .text))
+        XCTAssertEqual(next(), ("", .eof))
     }
 }

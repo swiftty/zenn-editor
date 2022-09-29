@@ -51,16 +51,22 @@ struct HeadingTokenizer: LexicalTokenizer {
 }
 
 struct DividerTokenizer: LexicalTokenizer {
-    var initialLetter: SyntaxText.Element? { .init(ascii: "-") }
+    var initialLetter: SyntaxText.Element? { .init(ascii: letter) }
     var block: Bool { true }
 
+    private let letter: Unicode.Scalar
+
+    init(letter: Unicode.Scalar) {
+        self.letter = letter
+    }
+
     func lex(on cursor: inout Lexer.Cursor) -> RawTokenKind? {
-        assert(cursor.previous == "-")
+        assert(cursor.previous == letter)
 
         var clone = cursor
         var length = 1
 
-        clone.advance(while: { $0 == "-" })
+        clone.advance(while: { $0 == letter || $0 == " " })
         length += cursor.distance(to: clone)
         cursor = clone
 
