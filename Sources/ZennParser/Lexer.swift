@@ -86,7 +86,8 @@ extension Lexer {
                 LinebreakTokenizer(letter: "\n"),
                 LinebreakTokenizer(letter: "\r"),
                 SpaceTokeninzer(),
-                HeadingTokenizer()
+                HeadingTokenizer(),
+                DividerTokenizer()
             ]
         )
         return LexemeSequence(start: start)
