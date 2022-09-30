@@ -7,5 +7,6 @@ public enum RawTokenKind: Equatable {
 
     case heading
     case divider
+    case quote
     case text
 }

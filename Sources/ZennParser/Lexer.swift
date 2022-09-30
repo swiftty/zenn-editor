@@ -68,7 +68,7 @@ extension Lexer {
                     : cursor.nextToken(with: consumedFirstTokenAtLine)
                 consumedFirstTokenAtLine = nextToken.tokenKind == .linebreak
                     ? false
-                    : consumedFirstTokenAtLine || test(nextToken.tokenKind)
+                    : consumedFirstTokenAtLine || !test(nextToken.tokenKind)
             }
             return nextToken
         }
@@ -88,7 +88,8 @@ extension Lexer {
                 SpaceTokeninzer(),
                 HeadingTokenizer(),
                 DividerTokenizer(letter: "-"),
-                DividerTokenizer(letter: "*")
+                DividerTokenizer(letter: "*"),
+                QuoteTokenizer()
             ]
         )
         return LexemeSequence(start: start)

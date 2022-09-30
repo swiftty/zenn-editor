@@ -22,6 +22,8 @@ final class ZennParserTests: XCTestCase {
         ***
 
             c ##  dd
+        >a
+         >>> b
         """
         var parser = Parser(.init(input))
 
@@ -50,6 +52,14 @@ final class ZennParserTests: XCTestCase {
         XCTAssertEqual(next(), ("##", .text))
         XCTAssertEqual(next(), ("  ", .space))
         XCTAssertEqual(next(), ("dd", .text))
+        XCTAssertEqual(next(), ("\n", .linebreak))
+        XCTAssertEqual(next(), (">", .quote))
+        XCTAssertEqual(next(), ("a", .text))
+        XCTAssertEqual(next(), ("\n", .linebreak))
+        XCTAssertEqual(next(), (" ", .space))
+        XCTAssertEqual(next(), (">>>", .quote))
+        XCTAssertEqual(next(), (" ", .space))
+        XCTAssertEqual(next(), ("b", .text))
         XCTAssertEqual(next(), ("", .eof))
     }
 }

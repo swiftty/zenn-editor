@@ -84,6 +84,18 @@ struct DividerTokenizer: LexicalTokenizer {
     }
 }
 
+struct QuoteTokenizer: LexicalTokenizer {
+    var initialLetter: SyntaxText.Element? { .init(ascii: ">") }
+    var block: Bool { true }
+
+    func lex(on cursor: inout Lexer.Cursor) -> RawTokenKind? {
+        assert(cursor.previous == ">")
+
+        cursor.advance(while: { $0 == ">" })
+        return .quote
+    }
+}
+
 extension SyntaxText.Element {
     var isEmptyElement: Bool {
         self == " " || self == "\0" || isNewline
